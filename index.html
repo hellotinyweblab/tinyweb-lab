@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TinyWeb Lab | Landing pages & quick website fixes</title>
+    <meta
+      name="description"
+      content="TinyWeb Lab builds clean one-page websites and fixes small HTML, CSS and JavaScript problems for small businesses and creators."
+    />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #2f5bea;
+        --secondary: #0b1f3a;
+        --accent: #ff7a59;
+        --bg: #f7f9fc;
+        --surface: #fff;
+        --text: #12202f;
+        --muted: #5b6b7d;
+        --border: #e3e9f1;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 76px;
+      }
+      body {
+        margin: 0;
+        font:
+          400 1rem/1.65 Inter,
+          system-ui,
+          sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Space Grotesk", Inter, sans-serif;
+        line-height: 1.15;
+        margin: 0 0 0.5rem;
+        color: var(--secondary);
+      }
+      h1 {
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        font-size: clamp(1.7rem, 3vw, 2.4rem);
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+      p {
+        margin: 0 0 1rem;
+      }
+      a {
+        color: var(--primary);
+      }
+      .wrap {
+        width: min(1100px, 92%);
+        margin: auto;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.3rem;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 2px solid transparent;
+        cursor: pointer;
+        font:
+          600 1rem Inter,
+          sans-serif;
+      }
+      .btn-p {
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-a {
+        background: var(--accent);
+        color: var(--secondary);
+      }
+      .btn-o {
+        border-color: var(--secondary);
+        color: var(--secondary);
+        background: transparent;
+      }
+      .btn:hover {
+        filter: brightness(0.94);
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+      }
+      .nav svg {
+        height: 40px;
+        width: auto;
+        display: block;
+      }
+      .menu {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      .menu a:not(.btn) {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .menu a:not(.btn):hover {
+        color: var(--primary);
+      }
+      .burger {
+        display: none;
+        background: none;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        padding: 0.45rem 0.7rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: var(--secondary);
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 3rem;
+        align-items: center;
+        padding: 4.5rem 0 3.5rem;
+      }
+      .eyebrow {
+        color: var(--primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.8rem;
+      }
+      .hero p.lead {
+        font-size: 1.15rem;
+        color: var(--muted);
+        max-width: 540px;
+      }
+      .cta-row {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+      }
+      .mock {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 1.2rem;
+        box-shadow: 0 20px 60px rgba(11, 31, 58, 0.1);
+      }
+      .mock i {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border);
+        margin-right: 6px;
+      }
+      .mock b {
+        display: block;
+        height: 14px;
+        border-radius: 8px;
+        background: var(--border);
+        margin: 0.7rem 0;
+        width: 80%;
+      }
+      .mock b.s {
+        width: 50%;
+      }
+      .mock .tile {
+        height: 90px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--primary), #8fb0ff);
+        margin-top: 1rem;
+      }
+      .mock .pill {
+        display: inline-block;
+        margin-top: 1rem;
+        background: var(--accent);
+        color: var(--secondary);
+        font-weight: 600;
+        padding: 0.4rem 1rem;
+        border-radius: 99px;
+        font-size: 0.85rem;
+      }
+      section {
+        padding: 4rem 0;
+      }
+      .head {
+        max-width: 640px;
+        margin-bottom: 2rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+      .grid.four {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(11, 31, 58, 0.09);
+      }
+      .tag {
+        align-self: flex-start;
+        background: #e8eeff;
+        color: #2446b8;
+        border-radius: 99px;
+        padding: 0.2rem 0.7rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+      }
+      .price {
+        font:
+          700 2.1rem "Space Grotesk",
+          sans-serif;
+        color: var(--secondary);
+      }
+      .meta {
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-bottom: 0.8rem;
+      }
+      details {
+        margin: 0.4rem 0 1.2rem;
+        border-top: 1px solid var(--border);
+        padding-top: 0.7rem;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--primary);
+      }
+      details ul {
+        padding-left: 1.1rem;
+        margin: 0.7rem 0 0;
+        font-size: 0.94rem;
+      }
+      details li {
+        margin-bottom: 0.4rem;
+      }
+      .card .btn {
+        margin-top: auto;
+        text-align: center;
+      }
+      .note {
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-top: 1.2rem;
+      }
+      .band {
+        background: var(--secondary);
+        color: #fff;
+      }
+      .band h2,
+      .band h3 {
+        color: #fff;
+      }
+      .band p {
+        color: #b8c4d6;
+      }
+      .preview {
+        height: 150px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      .why {
+        background: #fff;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .why .card {
+        background: var(--bg);
+      }
+      .upfront {
+        margin-top: 1.5rem;
+        background: #fff4ef;
+        border: 1px solid #ffd2c4;
+        border-radius: 14px;
+        padding: 1.2rem 1.4rem;
+      }
+      .upfront p {
+        margin: 0;
+      }
+      .steps {
+        counter-reset: s;
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+      .steps li {
+        counter-increment: s;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 1.5rem;
+      }
+      .steps li:before {
+        content: counter(s);
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 0.7rem;
+      }
+      .pol {
+        columns: 2;
+        gap: 2rem;
+        padding-left: 1.1rem;
+      }
+      .pol li {
+        margin-bottom: 0.7rem;
+        break-inside: avoid;
+      }
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+      .cbox {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 1.5rem;
+      }
+      .cbox ul {
+        padding-left: 1.1rem;
+        color: #b8c4d6;
+      }
+      .cbox .btn {
+        margin: 0.3rem 0.5rem 0.3rem 0;
+      }
+      .band .btn-o {
+        border-color: #fff;
+        color: #fff;
+      }
+      footer {
+        background: var(--secondary);
+        color: #b8c4d6;
+        padding: 2rem 0;
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        --lm-bg: #fff;
+        --lm-line: #2f5bea;
+        --lm-1: #fff;
+        --lm-2: #8fb0ff;
+        --lm-3: #b8c4d6;
+      }
+      .foot svg {
+        height: 36px;
+        width: auto;
+      }
+      .foot a {
+        color: #fff;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 860px) {
+        .grid,
+        .grid.four,
+        .steps {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero,
+        .contact {
+          grid-template-columns: 1fr;
+        }
+        .pol {
+          columns: 1;
+        }
+      }
+      @media (max-width: 640px) {
+        .burger {
+          display: block;
+        }
+        .menu {
+          display: none;
+          position: absolute;
+          top: 68px;
+          left: 0;
+          right: 0;
+          background: #fff;
+          border-bottom: 1px solid var(--border);
+          flex-direction: column;
+          align-items: stretch;
+          padding: 1rem 4%;
+          gap: 1rem;
+        }
+        .menu.open {
+          display: flex;
+        }
+        .menu .btn {
+          text-align: center;
+        }
+        .grid,
+        .grid.four,
+        .steps {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding-top: 2.5rem;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="logo" viewBox="0 0 270 64">
+        <rect
+          x="2"
+          y="2"
+          width="60"
+          height="60"
+          rx="16"
+          style="fill: var(--lm-bg, #2f5bea)"
+        />
+        <g
+          style="stroke: var(--lm-line, #fff)"
+          stroke-width="3"
+          stroke-linecap="round"
+          fill="none"
+        >
+          <line x1="22" y1="22" x2="42" y2="22" />
+          <line x1="22" y1="22" x2="32" y2="43" />
+          <line x1="42" y1="22" x2="32" y2="43" />
+        </g>
+        <circle cx="22" cy="22" r="5" style="fill: var(--lm-line, #fff)" />
+        <circle cx="42" cy="22" r="5" style="fill: var(--lm-line, #fff)" />
+        <circle cx="32" cy="43" r="5.5" fill="#FF7A59" />
+        <text
+          x="78"
+          y="41"
+          font-family="'Space Grotesk',Inter,Arial,sans-serif"
+          font-size="30"
+          font-weight="700"
+          letter-spacing="-0.5"
+          style="fill: var(--lm-1, #0b1f3a)"
+        >
+          Tiny
+          <tspan style="fill: var(--lm-2, #2f5bea)">Web</tspan>
+          <tspan font-weight="600" dx="6" style="fill: var(--lm-3, #5b6b7d)">
+            Lab
+          </tspan>
+        </text>
+      </symbol>
+    </svg>
+    <header>
+      <div class="wrap nav">
+        <a href="#top" aria-label="TinyWeb Lab home"
+          ><svg role="img" aria-label="TinyWeb Lab">
+            <title>TinyWeb Lab</title>
+            <use href="#logo" /></svg
+        ></a>
+        <button
+          class="burger"
+          id="burger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
+          &#9776;
+        </button>
+        <nav class="menu" id="menu" aria-label="Main">
+          <a href="#services">Services</a><a href="#work">Concept projects</a
+          ><a href="#why">Why TinyWeb Lab</a><a href="#contact">Contact</a>
+          <a class="btn btn-a" href="#contact" data-service="General enquiry"
+            >Get a quote</a
+          >
+        </nav>
+      </div>
+    </header>
+    <main id="top">
+      <div class="wrap hero">
+        <div>
+          <div class="eyebrow">Independent web studio</div>
+          <h1>Clean landing pages and quick website fixes.</h1>
+          <p class="lead">
+            TinyWeb Lab helps small businesses and creators with hand-coded,
+            mobile-friendly one-page websites and fixes for small HTML, CSS and
+            JavaScript problems. Clear scope, plain English, fixed prices.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-a" href="#services">See services &amp; prices</a
+            ><a class="btn btn-o" href="#work">View concept projects</a>
+          </div>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <i></i><i></i><i></i>
+          <h3 style="margin-top: 1rem">Your page, simply done.</h3>
+          <b></b><b class="s"></b>
+          <div class="tile"></div>
+          <span class="pill">Message us</span>
+        </div>
+      </div>
+
+      <section id="services">
+        <div class="wrap">
+          <div class="head">
+            <h2>Services &amp; pricing</h2>
+            <p class="muted">
+              Three small, clearly scoped services. Launch prices, with scope
+              and delivery date confirmed before any work starts.
+            </p>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <span class="tag">Quick fix</span>
+              <h3>HTML/CSS/JS bug fix</h3>
+              <div class="price">₹499</div>
+              <p class="meta">Delivery: 1&ndash;2 days</p>
+              <p>
+                One clearly described problem on one page, such as a broken
+                layout, a button that does nothing or an image that won't show.
+              </p>
+              <details>
+                <summary>What's included</summary>
+                <ul>
+                  <li>Fix for up to 2 related issues on one page</li>
+                  <li>
+                    Checked in Chrome on desktop and at phone and tablet
+                    viewport sizes
+                  </li>
+                  <li>Short plain-English note on what was wrong</li>
+                  <li>7 days of free re-check if the same issue returns</li>
+                </ul>
+              </details>
+              <a
+                class="btn btn-a"
+                href="#contact"
+                data-service="Quick HTML/CSS/JS bug fix (₹499)"
+                >Request this fix</a
+              >
+            </article>
+            <article class="card">
+              <span class="tag">Mobile</span>
+              <h3>Mobile responsive fix</h3>
+              <div class="price">₹999</div>
+              <p class="meta">Delivery: 2&ndash;3 days</p>
+              <p>
+                Make one existing page easy to read and use on phones and
+                tablets.
+              </p>
+              <details>
+                <summary>What's included</summary>
+                <ul>
+                  <li>One existing HTML/CSS page</li>
+                  <li>
+                    Fixes for text size, spacing, images, menus and sideways
+                    scrolling
+                  </li>
+                  <li>
+                    Checked in Chrome at common phone, tablet and desktop
+                    viewport sizes
+                  </li>
+                  <li>1 revision round</li>
+                </ul>
+              </details>
+              <a
+                class="btn btn-a"
+                href="#contact"
+                data-service="Mobile responsive fix (₹999)"
+                >Request this fix</a
+              >
+            </article>
+            <article class="card">
+              <span class="tag">New page</span>
+              <h3>One-page landing page</h3>
+              <div class="price">₹1,999</div>
+              <p class="meta">Delivery: 3&ndash;5 days</p>
+              <p>
+                A simple, mobile-first page for your business, service or
+                personal brand.
+              </p>
+              <details>
+                <summary>What's included</summary>
+                <ul>
+                  <li>Custom design in your colours and logo</li>
+                  <li>
+                    Up to 5 sections (for example hero, services, about, FAQ,
+                    contact)
+                  </li>
+                  <li>WhatsApp enquiry button and click-to-email button</li>
+                  <li>
+                    Basic SEO: page title, description and heading structure
+                  </li>
+                  <li>Free hosting setup help (GitHub Pages or Netlify)</li>
+                  <li>2 revision rounds</li>
+                </ul>
+                <p class="note">
+                  A contact form is not included. It needs a form service or
+                  backend, which can be agreed separately.
+                </p>
+              </details>
+              <a
+                class="btn btn-a"
+                href="#contact"
+                data-service="One-page landing page (₹1,999)"
+                >Request this page</a
+              >
+            </article>
+          </div>
+          <p class="note">
+            Prices are starting prices for the scope described. Larger or
+            different work is quoted separately after I review it. Custom
+            HTML/CSS/JS sites are my focus; for Wix, WordPress or other builders
+            I'll review the task first and tell you honestly if I can help.
+          </p>
+        </div>
+      </section>
+
+      <section id="work" class="band">
+        <div class="wrap">
+          <div class="head">
+            <h2>Concept projects</h2>
+            <p>
+              Three fictional pages made to show my layout, responsive styling
+              and call-to-action style. They are
+              <strong>not client work</strong> and the businesses are not real.
+            </p>
+          </div>
+          <div class="grid">
+            <article class="card" style="color: var(--text)">
+              <div
+                class="preview"
+                style="background: linear-gradient(145deg, #f6e3cf, #fff4dc)"
+              >
+                &#9749;
+              </div>
+              <span class="tag">Concept &middot; Caf&eacute;</span>
+              <h3>Daily Ritual Caf&eacute;</h3>
+              <p class="muted">
+                A warm coffee shop page with menu highlights, opening hours and
+                a location section.
+              </p>
+              <a href="samples/cafe/index.html">View concept &rarr;</a>
+            </article>
+            <article class="card" style="color: var(--text)">
+              <div
+                class="preview"
+                style="
+                  background: linear-gradient(145deg, #12202f, #2f5bea);
+                  color: #fff;
+                "
+              >
+                &#128170;
+              </div>
+              <span class="tag">Concept &middot; Fitness</span>
+              <h3>StrongRoots Coaching</h3>
+              <p class="muted">
+                An energetic personal trainer page with three coaching tiers and
+                a booking call-to-action.
+              </p>
+              <a href="samples/fitness/index.html">View concept &rarr;</a>
+            </article>
+            <article class="card" style="color: var(--text)">
+              <div
+                class="preview"
+                style="
+                  background: linear-gradient(145deg, #0b1f3a, #1b3a66);
+                  color: #8fb0ff;
+                "
+              >
+                &#10022;
+              </div>
+              <span class="tag">Concept &middot; Product</span>
+              <h3>FocusFlow</h3>
+              <p class="muted">
+                A clean, dark-themed landing page for a fictional productivity
+                app with a feature grid.
+              </p>
+              <a href="samples/saas/index.html">View concept &rarr;</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="why" class="why">
+        <div class="wrap">
+          <div class="head">
+            <h2>Why TinyWeb Lab?</h2>
+            <p class="muted">A small studio keeps things simple.</p>
+          </div>
+          <div class="grid four">
+            <div class="card">
+              <h3>Mobile-first</h3>
+              <p class="muted">
+                Pages are designed for phone screens first, then checked at
+                larger sizes.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Zero bloat</h3>
+              <p class="muted">
+                Hand-coded HTML, CSS and JavaScript. No page builders or heavy
+                libraries.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Clear scope</h3>
+              <p class="muted">
+                Price, deliverables, revisions and timeline are agreed before
+                work begins.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Plain English</h3>
+              <p class="muted">
+                You get a short note explaining what was changed and why.
+              </p>
+            </div>
+          </div>
+          <div class="upfront">
+            <p>
+              <strong>Being upfront:</strong> TinyWeb Lab is a new studio, so
+              there are no client reviews yet. The concept projects above show
+              my style. I test on Windows with Chrome and its responsive
+              viewport tools, not on Safari or real iPhones.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="head"><h2>How it works</h2></div>
+          <ol class="steps">
+            <li>
+              <h3>Send the details</h3>
+              <p class="muted">
+                Message me your page link or code, a screenshot and what you
+                want it to look like.
+              </p>
+            </li>
+            <li>
+              <h3>Agree the scope</h3>
+              <p class="muted">
+                I confirm what's included, the price, revisions and delivery
+                date. 50% advance to begin.
+              </p>
+            </li>
+            <li>
+              <h3>Build and deliver</h3>
+              <p class="muted">
+                I do the work, send it for review, make included revisions, and
+                hand over the files once paid in full.
+              </p>
+            </li>
+          </ol>
+          <h3 style="margin-top: 2.5rem">Simple policies</h3>
+          <ul class="pol">
+            <li>
+              <strong>Scope first:</strong> nothing starts until scope and date
+              are confirmed in writing.
+            </li>
+            <li>
+              <strong>Payment:</strong> 50% advance, 50% on delivery. On
+              marketplaces, platform escrow is used.
+            </li>
+            <li>
+              <strong>Ownership:</strong> you own the final files once paid in
+              full.
+            </li>
+            <li>
+              <strong>Fix guarantee:</strong> if a bug fix doesn't solve the
+              agreed issue, I re-check it free or refund the fix price.
+            </li>
+            <li>
+              <strong>Extra work:</strong> additional revisions are ₹300 per
+              round. New requests are quoted separately.
+            </li>
+            <li>
+              <strong>Concept projects:</strong> always labelled as fictional,
+              never presented as client work.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="band">
+        <div class="wrap contact">
+          <div>
+            <h2>Have a small web task?</h2>
+            <p>
+              Send a short description, a link or screenshot, and what you'd
+              like changed. I'll review the scope before quoting. No pressure
+              and no obligation.
+            </p>
+            <p>Email: <strong class="email-text"></strong></p>
+          </div>
+          <div class="cbox">
+            <h3>Get in touch</h3>
+            <a class="btn btn-a" href="#contact" data-service="General enquiry"
+              >Send an email</a
+            ><a
+              class="btn btn-o"
+              href="#contact"
+              data-service="General enquiry"
+              data-wa
+              hidden
+              >WhatsApp me</a
+            >
+            <p style="margin: 1rem 0 0.3rem">
+              <strong style="color: #fff">Helpful to include:</strong>
+            </p>
+            <ul>
+              <li>Your page link or code</li>
+              <li>A screenshot of the problem or an example you like</li>
+              <li>Your deadline, if any</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="wrap foot">
+        <svg role="img" aria-label="TinyWeb Lab">
+          <title>TinyWeb Lab</title>
+          <use href="#logo" />
+        </svg>
+        <span
+          >&copy; <span id="yr">2026</span> TinyWeb Lab &middot; Independent web
+          services</span
+        >
+        <a href="#top">Back to top &uarr;</a>
+      </div>
+    </footer>
+    <script>
+      /* EDIT THESE TWO LINES: your business email, and WhatsApp number with country code and no + or spaces (e.g. "91XXXXXXXXXX"). Leave whatsapp "" to hide WhatsApp buttons. */
+      var CONFIG = { email: "hello.tinyweblab@gmail.com", whatsapp: "" };
+      (function () {
+        var body =
+          "Hi TinyWeb Lab,\n\nI'd like help with: \nMy page link: \nWhat I need: \nDeadline (if any): \n";
+        document.querySelectorAll("[data-service]").forEach(function (a) {
+          var s = a.getAttribute("data-service");
+          a.href = a.hasAttribute("data-wa")
+            ? "https://wa.me/" +
+              CONFIG.whatsapp +
+              "?text=" +
+              encodeURIComponent("Hi TinyWeb Lab, I'd like to ask about: " + s)
+            : "mailto:" +
+              CONFIG.email +
+              "?subject=" +
+              encodeURIComponent("Enquiry: " + s) +
+              "&body=" +
+              encodeURIComponent(body);
+          if (a.hasAttribute("data-wa")) {
+            a.hidden = !CONFIG.whatsapp;
+            a.target = "_blank";
+            a.rel = "noopener";
+          }
+        });
+        document.querySelectorAll(".email-text").forEach(function (e) {
+          e.textContent = CONFIG.email;
+        });
+        document.getElementById("yr").textContent = new Date().getFullYear();
+        var b = document.getElementById("burger"),
+          m = document.getElementById("menu");
+        function t(o) {
+          m.classList.toggle("open", o);
+          b.setAttribute("aria-expanded", o);
+        }
+        b.addEventListener("click", function () {
+          t(!m.classList.contains("open"));
+        });
+        m.querySelectorAll("a").forEach(function (a) {
+          a.addEventListener("click", function () {
+            t(false);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
